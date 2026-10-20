@@ -30,3 +30,11 @@ def test_register_requires_email_and_password(client):
     response = client.post("/register", json={"email": "ada@example.com"})
 
     assert response.status_code == 422
+
+
+def test_register_rejects_short_password(client):
+    response = client.post(
+        "/register", json={"email": "ada@example.com", "password": "short"}
+    )
+
+    assert response.status_code == 422
